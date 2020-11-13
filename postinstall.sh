@@ -11,10 +11,23 @@ apt-get --purge remove xinetd nis yp-tools tftpd atftpd tftpd-hpa telnetd rsh-se
 apt-get remove xserver-xorg-core
 
 # Actualització dels paquets de distribució i del propi kernel
-apt-get update && apt-get upgrade
-
-# Activació de SELinux
-#if ($(getenforce) == "Disabled") { setenforce 1}
+apt-get update && apt-get upgrade -y
 
 # Instal·lació dels paquets habituals
-apt-get install -y wget git vim bash-completion
+apt-get install -y sudo curl wget git vim bash-completion
+
+# Afegeix l'usuari al grup sudo
+user=$(who | cut -f1 -d' ')
+echo 'afegim a '$user' dintre del grup SUDO'
+usermod -aG sudo $user
+
+# Instal·lació de SELinux
+apt install selinux-basics selinux-policy-default -y
+
+# Activació de SELinux
+selinux-activate && setenforce 1
+
+
+
+# Reiniciem l'equip
+#shutdown -r now
