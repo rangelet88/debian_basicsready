@@ -17,7 +17,7 @@ apt-get update && apt-get upgrade -y
 apt-get install -y sudo curl wget git vim bash-completion
 
 # Afegeix l'usuari al grup sudo
-user=$(who | cut -f1 -d' ')
+user=$(who | cut -f1 -d' ' | sed -n 1p)
 echo 'afegim a '$user' dintre del grup SUDO'
 usermod -aG sudo $user
 
