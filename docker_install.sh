@@ -17,6 +17,6 @@ docker swarm join-token manager | grep join  > join.sh
 chmod u+x join.sh
 
 # Afegeix l'usuari al grup Docker
-dockerUser=$(who | cut -f1 -d' ')
-echo 'afegim a '$dockerUser' dintre del grup SUDO'
+dockerUser=$(who | cut -f1 -d' ' | sed -n 1p)
+echo 'afegim a '$dockerUser' dintre del grup DOCKER'
 usermod -aG docker $dockerUser
